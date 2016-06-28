@@ -9,3 +9,10 @@ To run the benchmark yourself, simply clone the github repo onto your computer, 
 ![Benchmarking](./BenchmarkingResults.png)
 
 Results suggest Perl is faster than Julia for processing fasta files (calculating median length).
+
+#How To Get The Data
+Uncompress the files using this line
+
+```bash
+cat largeseqtest.fa.gz_* | gunzip -c > largeseqtest.fa
+```

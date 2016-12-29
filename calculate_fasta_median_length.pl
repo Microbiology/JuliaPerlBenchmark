@@ -15,20 +15,26 @@ open(my $IN, "<", "$infile") || die "Unable to open $infile: $!";
 
 # Set variable for list of length values
 my @lengths = ();
-my $line_length = 0;
+my $seq_length = -1;
 my $result = 0;
 
 # Assign lengths of each sequence to the array
 while (my $line = <$IN>) {
 	# Skip the sequence identifier lines
 	if ($line =~ /\>/) {
+		if ($seq_length != -1) {
+			push @lengths, $seq_length;
+		}
+		$seq_length = 0;
 		next;
 	} else {
 		# Add  line lengths to array
 		chomp $line;
-		my $line_length = length $line;
-		push @lengths, $line_length;
+		$seq_length += length $line;
 	}
+}
+if ($seq_length != -1) { # do not forget the last record
+	push @lengths, $seq_length;
 }
 
 # Sort the length array
